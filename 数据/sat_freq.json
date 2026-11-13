@@ -99,6 +99,42 @@
       ],
       "_unverified": true
     },
+    "22826": {
+      "name": "IO-26",
+      "down": 435.8445,
+      "up": 145.9125,
+      "tone": 0.0,
+      "mode": "1k2 JAS",
+      "blurb": "AMSAT 频率库：1k2 JAS，下行 435.844，上行 145.912，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 JAS",
+          "down": 435.8445,
+          "up": 145.9125,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "23439": {
+      "name": "RS-15",
+      "down": 29.3525,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "CW",
+      "blurb": "AMSAT 频率库：CW，下行 29.352，状态 non-operational（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "CW",
+          "down": 29.3525,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "24278": {
       "name": "FO-29",
       "down": 435.8,
@@ -281,6 +317,24 @@
       ],
       "_unverified": true
     },
+    "29709": {
+      "name": "LAPAN-A1",
+      "down": 436.075,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "FM",
+      "blurb": "AMSAT 频率库：FM，下行 436.075，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "FM",
+          "down": 436.075,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "32785": {
       "name": "CO-65",
       "down": 437.275,
@@ -335,6 +389,168 @@
       ],
       "_unverified": true
     },
+    "33498": {
+      "name": "STARS-daughter",
+      "down": 437.465,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 FM CW*",
+      "blurb": "AMSAT 频率库：1k2 FM CW*，下行 437.465，呼号 JR5YBO。",
+      "transponders": [
+        {
+          "name": "1k2 FM CW*",
+          "down": 437.465,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "33499": {
+      "name": "KKS-1",
+      "down": 437.445,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 AFSK CW*",
+      "blurb": "AMSAT 频率库：1k2 AFSK CW*，下行 437.445，呼号 JQ1YYY。",
+      "transponders": [
+        {
+          "name": "1k2 AFSK CW*",
+          "down": 437.445,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "35932": {
+      "name": "SwissCube-1",
+      "down": 437.505,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 FSK CW",
+      "blurb": "AMSAT 频率库：1k2 FSK CW，下行 437.505，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 FSK CW",
+          "down": 437.505,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "35933": {
+      "name": "BEESAT-1",
+      "down": 436.0,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8/9k6 GMSK",
+      "blurb": "AMSAT 频率库：4k8/9k6 GMSK，下行 436.000，状态 inactive（已失效，仅供监听），呼号 DP0BEE。",
+      "transponders": [
+        {
+          "name": "4k8/9k6 GMSK",
+          "down": 436.0,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "35935": {
+      "name": "ITUpSat-1",
+      "down": 437.325,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "19k2 GFSK CW*",
+      "blurb": "AMSAT 频率库：19k2 GFSK CW*，下行 437.325，呼号 ITUPSAT。",
+      "transponders": [
+        {
+          "name": "19k2 GFSK CW*",
+          "down": 437.325,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "36122": {
+      "name": "CAS-1",
+      "down": 435.79,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "CW",
+      "blurb": "AMSAT 频率库：CW，下行 435.790，呼号 BJ1SA。",
+      "transponders": [
+        {
+          "name": "CW",
+          "down": 435.79,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "36799": {
+      "name": "TIsat-1",
+      "down": 437.305,
+      "up": 145.98,
+      "tone": 0.0,
+      "mode": "FM AFSK PSK CW",
+      "blurb": "AMSAT 频率库：FM AFSK PSK CW，下行 437.305，上行 145.980，状态 inactive（已失效，仅供监听），呼号 HB9DE。",
+      "transponders": [
+        {
+          "name": "FM AFSK PSK CW",
+          "down": 437.305,
+          "up": 145.98,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "37224": {
+      "name": "O/OREOS",
+      "down": 437.305,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 AFSK",
+      "blurb": "AMSAT 频率库：1k2 AFSK，下行 437.305，状态 inactive（已失效，仅供监听），呼号 KF6JBP。",
+      "transponders": [
+        {
+          "name": "1k2 AFSK",
+          "down": 437.305,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "37839": {
+      "name": "Jugnu",
+      "down": 437.505,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "CW",
+      "blurb": "AMSAT 频率库：CW，下行 437.505，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "CW",
+          "down": 437.505,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "37841": {
       "name": "SRMSAT",
       "down": 437.425,
@@ -367,6 +583,24 @@
           "up": 0.0,
           "tone": 0.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "39427": {
+      "name": "Triton-1",
+      "down": 145.818,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 RC-BPSK CW*",
+      "blurb": "AMSAT 频率库：1k2 RC-BPSK CW*，下行 145.818，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 RC-BPSK CW*",
+          "down": 145.818,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -423,6 +657,204 @@
           "note": ""
         }
       ]
+    },
+    "39446": {
+      "name": "UWE-3",
+      "down": 435.0,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GMSK CW",
+      "blurb": "AMSAT 频率库：9k6 GMSK CW，下行 435.000，状态 inactive（已失效，仅供监听），呼号 DP0UWG。",
+      "transponders": [
+        {
+          "name": "9k6 GMSK CW",
+          "down": 435.0,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40012": {
+      "name": "UniSat-6",
+      "down": 437.421,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GMSK",
+      "blurb": "AMSAT 频率库：9k6 GMSK，下行 437.421，状态 inactive（已失效，仅供监听），呼号 II0US。",
+      "transponders": [
+        {
+          "name": "9k6 GMSK",
+          "down": 437.421,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40014": {
+      "name": "BugSat-1",
+      "down": 437.445,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GMSK",
+      "blurb": "AMSAT 频率库：9k6 GMSK，下行 437.445，状态 inactive（已失效，仅供监听），呼号 LU7AA。",
+      "transponders": [
+        {
+          "name": "9k6 GMSK",
+          "down": 437.445,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40024": {
+      "name": "NanosatC-Br1",
+      "down": 145.865,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 BPSK CW",
+      "blurb": "AMSAT 频率库：1k2 BPSK CW，下行 145.865，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 BPSK CW",
+          "down": 145.865,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40025": {
+      "name": "EO-79",
+      "down": 145.95,
+      "up": 435.062,
+      "tone": 0.0,
+      "mode": "1k2 BPSK CW SSB",
+      "blurb": "AMSAT 频率库：1k2 BPSK CW SSB，下行 145.950，上行 435.062，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 BPSK CW SSB",
+          "down": 145.95,
+          "up": 435.062,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40032": {
+      "name": "EO-80",
+      "down": 145.86,
+      "up": 435.08,
+      "tone": 0.0,
+      "mode": "1k2 BPSK CW FM",
+      "blurb": "AMSAT 频率库：1k2 BPSK CW FM，下行 145.860，上行 435.080，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 BPSK CW FM",
+          "down": 145.86,
+          "up": 435.08,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40042": {
+      "name": "PolyITAN-1",
+      "down": 437.677,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 FSK CW",
+      "blurb": "AMSAT 频率库：9k6 FSK CW，下行 437.677，状态 inactive（已失效，仅供监听），呼号 EM0UKP。",
+      "transponders": [
+        {
+          "name": "9k6 FSK CW",
+          "down": 437.677,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40043": {
+      "name": "TigriSat",
+      "down": 435.0,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 FSK",
+      "blurb": "AMSAT 频率库：9k6 FSK，下行 435.000，呼号 HNATIG。",
+      "transponders": [
+        {
+          "name": "9k6 FSK",
+          "down": 435.0,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40055": {
+      "name": "CANX-4",
+      "down": 145.89,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "32K-256K BPSK",
+      "blurb": "AMSAT 频率库：32K-256K BPSK，下行 145.890，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "32K-256K BPSK",
+          "down": 145.89,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40056": {
+      "name": "CANX-5",
+      "down": 145.89,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "32K-256K BPSK",
+      "blurb": "AMSAT 频率库：32K-256K BPSK，下行 145.890，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "32K-256K BPSK",
+          "down": 145.89,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "40074": {
+      "name": "FUNcube-2",
+      "down": 145.94,
+      "up": 435.07,
+      "tone": 0.0,
+      "mode": "1k2 BPSK",
+      "blurb": "AMSAT 频率库：1k2 BPSK，下行 145.940，上行 435.070，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 BPSK",
+          "down": 145.94,
+          "up": 435.07,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
     },
     "40908": {
       "name": "LILACSAT-2",
@@ -486,6 +918,24 @@
           "up": 435.18,
           "tone": 67.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "40974": {
+      "name": "BisonSat",
+      "down": 437.375,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GMSK",
+      "blurb": "AMSAT 频率库：9k6 GMSK，下行 437.375，呼号 N7SKC。",
+      "transponders": [
+        {
+          "name": "9k6 GMSK",
+          "down": 437.375,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -670,6 +1120,24 @@
       ],
       "_unverified": true
     },
+    "43679": {
+      "name": "STARS-AO",
+      "down": 437.2,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2*AFSK 115kGMSK CW",
+      "blurb": "AMSAT 频率库：1k2*AFSK 115kGMSK CW，下行 437.200，呼号 JJ2YSY。",
+      "transponders": [
+        {
+          "name": "1k2*AFSK 115kGMSK CW",
+          "down": 437.2,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "43758": {
       "name": "MinXSS-2",
       "down": 437.25,
@@ -688,6 +1156,24 @@
       ],
       "_unverified": true
     },
+    "43768": {
+      "name": "AISTECHSAT-2",
+      "down": 436.73,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8*/9k6 FSK",
+      "blurb": "AMSAT 频率库：4k8*/9k6 FSK，下行 436.730。",
+      "transponders": [
+        {
+          "name": "4k8*/9k6 FSK",
+          "down": 436.73,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "43770": {
       "name": "AO-95",
       "down": 145.92,
@@ -702,6 +1188,24 @@
           "up": 435.3,
           "tone": 67.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "43773": {
+      "name": "RANGE-B",
+      "down": 437.475,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "0.1k-115.2k FSK/MSK/GFSK/GMSK",
+      "blurb": "AMSAT 频率库：0.1k-115.2k FSK/MSK/GFSK/GMSK，下行 437.475，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "0.1k-115.2k FSK/MSK/GFSK/GMSK",
+          "down": 437.475,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -903,6 +1407,42 @@
       ],
       "_unverified": true
     },
+    "46493": {
+      "name": "DEKART",
+      "down": 437.0,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8 mobitex",
+      "blurb": "AMSAT 频率库：4k8 mobitex，下行 437.000，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "4k8 mobitex",
+          "down": 437.0,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "46494": {
+      "name": "Norby",
+      "down": 436.7,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 FSK LoRa",
+      "blurb": "AMSAT 频率库：9k6 FSK LoRa，下行 436.700，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "9k6 FSK LoRa",
+          "down": 436.7,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "46495": {
       "name": "SALSAT",
       "down": 435.95,
@@ -917,6 +1457,96 @@
           "up": 0.0,
           "tone": 0.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "46504": {
+      "name": "NETSAT-4",
+      "down": 435.6,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.600，呼号 DP2NSD。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.6,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "46505": {
+      "name": "NETSAT-3",
+      "down": 435.6,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.600，呼号 DP2NSC。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.6,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "46506": {
+      "name": "NETSAT-1",
+      "down": 435.6,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.600，呼号 DP2NSA。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.6,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "46507": {
+      "name": "NETSAT-2",
+      "down": 435.6,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.600，呼号 DP2NSB。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.6,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "47945": {
+      "name": "UniSat-7",
+      "down": 437.425,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 437.425，呼号 II0US。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 437.425,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -1011,6 +1641,42 @@
       ],
       "_unverified": true
     },
+    "52897": {
+      "name": "STEP CubeLab-II",
+      "down": 437.485,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GMSK",
+      "blurb": "AMSAT 频率库：9k6 GMSK，下行 437.485，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "9k6 GMSK",
+          "down": 437.485,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "52898": {
+      "name": "RANDEV",
+      "down": 436.03,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2*/9k6 BPSK",
+      "blurb": "AMSAT 频率库：1k2*/9k6 BPSK，下行 436.030，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2*/9k6 BPSK",
+          "down": 436.03,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "52899": {
       "name": "SNUGLITE 2",
       "down": 436.49,
@@ -1025,6 +1691,24 @@
           "up": 0.0,
           "tone": 0.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "52900": {
+      "name": "MIMAN",
+      "down": 436.5,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "2k4/4k8* FSK",
+      "blurb": "AMSAT 频率库：2k4/4k8* FSK，下行 436.500。",
+      "transponders": [
+        {
+          "name": "2k4/4k8* FSK",
+          "down": 436.5,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -1047,6 +1731,132 @@
       ],
       "_unverified": true
     },
+    "54153": {
+      "name": "Skif-D",
+      "down": 435.566,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "FM",
+      "blurb": "AMSAT 频率库：FM，下行 435.566，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "FM",
+          "down": 435.566,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "55009": {
+      "name": "Star-Vibe",
+      "down": 437.025,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8*/9k6GMSK",
+      "blurb": "AMSAT 频率库：4k8*/9k6GMSK，下行 437.025，状态 inactive（已失效，仅供监听），呼号 OM9GRB。",
+      "transponders": [
+        {
+          "name": "4k8*/9k6GMSK",
+          "down": 437.025,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "55104": {
+      "name": "SharjahSat-1",
+      "down": 437.325,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "256/1k2/9k6* GMSK",
+      "blurb": "AMSAT 频率库：256/1k2/9k6* GMSK，下行 437.325，呼号 A60UOS。",
+      "transponders": [
+        {
+          "name": "256/1k2/9k6* GMSK",
+          "down": 437.325,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "56744": {
+      "name": "SNIPE-D",
+      "down": 437.8,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8 MSK_AX.100_Mode 5",
+      "blurb": "AMSAT 频率库：4k8 MSK_AX.100_Mode 5，下行 437.800。",
+      "transponders": [
+        {
+          "name": "4k8 MSK_AX.100_Mode 5",
+          "down": 437.8,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "56745": {
+      "name": "SNIPE-B",
+      "down": 436.0,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8 MSK_AX.100_Mode 5",
+      "blurb": "AMSAT 频率库：4k8 MSK_AX.100_Mode 5，下行 436.000。",
+      "transponders": [
+        {
+          "name": "4k8 MSK_AX.100_Mode 5",
+          "down": 436.0,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "56749": {
+      "name": "SNIPE-A",
+      "down": 435.45,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8 MSK_AX.100_Mode 5",
+      "blurb": "AMSAT 频率库：4k8 MSK_AX.100_Mode 5，下行 435.450，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "4k8 MSK_AX.100_Mode 5",
+          "down": 435.45,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57168": {
+      "name": "ReshUCube-2",
+      "down": 435.691,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 FSK/DOKA LoRa",
+      "blurb": "AMSAT 频率库：9k6 FSK/DOKA LoRa，下行 435.691，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "9k6 FSK/DOKA LoRa",
+          "down": 435.691,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "57172": {
       "name": "UmKA 1 (RS40S)",
       "down": 437.625,
@@ -1064,6 +1874,42 @@
         }
       ]
     },
+    "57173": {
+      "name": "SamSat-ION",
+      "down": 437.4,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2*/2k4 FSK CW",
+      "blurb": "AMSAT 频率库：1k2*/2k4 FSK CW，下行 437.400，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2*/2k4 FSK CW",
+          "down": 437.4,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57174": {
+      "name": "Saturn",
+      "down": 435.79,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 AFSK",
+      "blurb": "AMSAT 频率库：1k2 AFSK，下行 435.790，呼号 RS43S。",
+      "transponders": [
+        {
+          "name": "1k2 AFSK",
+          "down": 435.79,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "57175": {
       "name": "CubeBel-2 (EU11S)",
       "down": 436.99,
@@ -1078,6 +1924,42 @@
           "up": 0.0,
           "tone": 0.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "57178": {
+      "name": "CubeSX-HSE-3",
+      "down": 436.57,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "2k4*/4k8/9k6 GMSK_USP",
+      "blurb": "AMSAT 频率库：2k4*/4k8/9k6 GMSK_USP，下行 436.570，呼号 RS42S。",
+      "transponders": [
+        {
+          "name": "2k4*/4k8/9k6 GMSK_USP",
+          "down": 436.57,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57179": {
+      "name": "Norby-2",
+      "down": 435.6,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa",
+      "blurb": "AMSAT 频率库：LoRa，下行 435.600。",
+      "transponders": [
+        {
+          "name": "LoRa",
+          "down": 435.6,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -1116,6 +1998,78 @@
         }
       ]
     },
+    "57184": {
+      "name": "Monitor-2",
+      "down": 435.0,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2*AFSK/9k6 FSK",
+      "blurb": "AMSAT 频率库：1k2*AFSK/9k6 FSK，下行 435.000，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2*AFSK/9k6 FSK",
+          "down": 435.0,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57186": {
+      "name": "CSTP-1.2",
+      "down": 436.27,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa",
+      "blurb": "AMSAT 频率库：LoRa，下行 436.270，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "LoRa",
+          "down": 436.27,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57187": {
+      "name": "Svyatobor-1",
+      "down": 437.875,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "2k4*/4k8/9k6 GMSK_USP",
+      "blurb": "AMSAT 频率库：2k4*/4k8/9k6 GMSK_USP，下行 437.875。",
+      "transponders": [
+        {
+          "name": "2k4*/4k8/9k6 GMSK_USP",
+          "down": 437.875,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57188": {
+      "name": "Hors-1",
+      "down": 435.3,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 FSK",
+      "blurb": "AMSAT 频率库：9k6 FSK，下行 435.300，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "9k6 FSK",
+          "down": 435.3,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "57189": {
       "name": "RS-38S",
       "down": 437.825,
@@ -1132,6 +2086,96 @@
           "note": ""
         }
       ]
+    },
+    "57191": {
+      "name": "Polytech-Universe-3",
+      "down": 435.415,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa/FSK",
+      "blurb": "AMSAT 频率库：LoRa/FSK，下行 435.415，呼号 RS46S。",
+      "transponders": [
+        {
+          "name": "LoRa/FSK",
+          "down": 435.415,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57195": {
+      "name": "Avion-Kaluga-650",
+      "down": 435.665,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 DOKA",
+      "blurb": "AMSAT 频率库：9k6 DOKA，下行 435.665，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "9k6 DOKA",
+          "down": 435.665,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57196": {
+      "name": "Hors-2",
+      "down": 435.5,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 FSK",
+      "blurb": "AMSAT 频率库：9k6 FSK，下行 435.500，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "9k6 FSK",
+          "down": 435.5,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57200": {
+      "name": "Yarilo-4",
+      "down": 435.4,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 FSK FM",
+      "blurb": "AMSAT 频率库：9k6 FSK FM，下行 435.400，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "9k6 FSK FM",
+          "down": 435.4,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "57202": {
+      "name": "CSTP-1.1",
+      "down": 436.075,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa",
+      "blurb": "AMSAT 频率库：LoRa，下行 436.075。",
+      "transponders": [
+        {
+          "name": "LoRa",
+          "down": 436.075,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
     },
     "57203": {
       "name": "RS27S (UTMN-2)",
@@ -1150,6 +2194,60 @@
         }
       ]
     },
+    "57217": {
+      "name": "KuzGTU-1",
+      "down": 437.1,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "2k4*-9k6 GMSK_USP",
+      "blurb": "AMSAT 频率库：2k4*-9k6 GMSK_USP，下行 437.100，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "2k4*-9k6 GMSK_USP",
+          "down": 437.1,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "58755": {
+      "name": "NanoFF-B",
+      "down": 435.95,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8 GMSK",
+      "blurb": "AMSAT 频率库：4k8 GMSK，下行 435.950，呼号 DP0NFB。",
+      "transponders": [
+        {
+          "name": "4k8 GMSK",
+          "down": 435.95,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "58810": {
+      "name": "NanoFF-A",
+      "down": 435.95,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8 GMSK",
+      "blurb": "AMSAT 频率库：4k8 GMSK，下行 435.950，呼号 DP0NFA。",
+      "transponders": [
+        {
+          "name": "4k8 GMSK",
+          "down": 435.95,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "59112": {
       "name": "SONATE-2",
       "down": 145.825,
@@ -1167,6 +2265,24 @@
         }
       ]
     },
+    "60209": {
+      "name": "MESAT-1",
+      "down": 435.825,
+      "up": 145.925,
+      "tone": 0.0,
+      "mode": "1k2 BPSK SSB",
+      "blurb": "AMSAT 频率库：1k2 BPSK SSB，下行 435.825，上行 145.925。",
+      "transponders": [
+        {
+          "name": "1k2 BPSK SSB",
+          "down": 435.825,
+          "up": 145.925,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "60237": {
       "name": "GRBBeta",
       "down": 436.785,
@@ -1183,6 +2299,42 @@
           "note": ""
         }
       ]
+    },
+    "60238": {
+      "name": "ISTSAT-1",
+      "down": 145.895,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 AFSK CW",
+      "blurb": "AMSAT 频率库：1k2 AFSK CW，下行 145.895，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 AFSK CW",
+          "down": 145.895,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "60240": {
+      "name": "OOV-Cube",
+      "down": 435.95,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 AFSK",
+      "blurb": "AMSAT 频率库：1k2 AFSK，下行 435.950，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2 AFSK",
+          "down": 435.95,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
     },
     "60242": {
       "name": "Curium One",
@@ -1237,6 +2389,222 @@
         }
       ]
     },
+    "60476": {
+      "name": "QUBE",
+      "down": 435.6,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.600，呼号 DP2QU。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.6,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "60525": {
+      "name": "OreSat-0.5",
+      "down": 436.5,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GMSK",
+      "blurb": "AMSAT 频率库：9k6 GMSK，下行 436.500，状态 inactive（已失效，仅供监听），呼号 KJ7SAT。",
+      "transponders": [
+        {
+          "name": "9k6 GMSK",
+          "down": 436.5,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "60530": {
+      "name": "TORO",
+      "down": 435.41,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8*/9k6 GMSK",
+      "blurb": "AMSAT 频率库：4k8*/9k6 GMSK，下行 435.410，状态 unknown（已失效，仅供监听），呼号 XX0UHF。",
+      "transponders": [
+        {
+          "name": "4k8*/9k6 GMSK",
+          "down": 435.41,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "60535": {
+      "name": "Nightjar",
+      "down": 435.35,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8 GFSK",
+      "blurb": "AMSAT 频率库：4k8 GFSK，下行 435.350，呼号 XX0UHF。",
+      "transponders": [
+        {
+          "name": "4k8 GFSK",
+          "down": 435.35,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61072": {
+      "name": "CHAMRAN-1",
+      "down": 436.74,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "38k4 FSK",
+      "blurb": "AMSAT 频率库：38k4 FSK，下行 436.740，状态 inactive（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "38k4 FSK",
+          "down": 436.74,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61746": {
+      "name": "Colibri-S",
+      "down": 436.835,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK CW",
+      "blurb": "AMSAT 频率库：9k6 GFSK CW，下行 436.835，呼号 RS67S。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK CW",
+          "down": 436.835,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61749": {
+      "name": "Vizard-ion",
+      "down": 436.87,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 436.870，呼号 RS68S。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 436.87,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61750": {
+      "name": "MTUSI-1",
+      "down": 435.6,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "38k4 FSK",
+      "blurb": "AMSAT 频率库：38k4 FSK，下行 435.600，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "38k4 FSK",
+          "down": 435.6,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61753": {
+      "name": "Hors-3",
+      "down": 435.65,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "38k4 FSK",
+      "blurb": "AMSAT 频率库：38k4 FSK，下行 435.650，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "38k4 FSK",
+          "down": 435.65,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61754": {
+      "name": "Hors-4",
+      "down": 435.7,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "38k4 FSK",
+      "blurb": "AMSAT 频率库：38k4 FSK，下行 435.700，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "38k4 FSK",
+          "down": 435.7,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61769": {
+      "name": "Kosar",
+      "down": 436.74,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "38k4 FSK",
+      "blurb": "AMSAT 频率库：38k4 FSK，下行 436.740，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "38k4 FSK",
+          "down": 436.74,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61779": {
+      "name": "Altair",
+      "down": 435.665,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2AFSK 4k8BPSK",
+      "blurb": "AMSAT 频率库：1k2AFSK 4k8BPSK，下行 435.665，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "1k2AFSK 4k8BPSK",
+          "down": 435.665,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "61781": {
       "name": "AO-123",
       "down": 436.21,
@@ -1253,6 +2621,42 @@
           "note": ""
         }
       ]
+    },
+    "61784": {
+      "name": "SamSat-ION2",
+      "down": 437.4,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "1k2 FSK",
+      "blurb": "AMSAT 频率库：1k2 FSK，下行 437.400，呼号 RS75S。",
+      "transponders": [
+        {
+          "name": "1k2 FSK",
+          "down": 437.4,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "61785": {
+      "name": "RTU-MIREA1",
+      "down": 436.2,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK CW",
+      "blurb": "AMSAT 频率库：9k6 GFSK CW，下行 436.200，呼号 RS51S。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK CW",
+          "down": 436.2,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
     },
     "62391": {
       "name": "LASARsat",
@@ -1287,6 +2691,41 @@
           "note": ""
         }
       ]
+    },
+    "62611": {
+      "name": "BALKAN-1",
+      "down": 401.36,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GMSK",
+      "blurb": "AMSAT 频率库：9k6 GMSK，下行 401.360，呼号 BALKAN。",
+      "transponders": [
+        {
+          "name": "9k6 GMSK",
+          "down": 401.36,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ]
+    },
+    "62616": {
+      "name": "INNOCUBE",
+      "down": 435.95,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 MSK CW",
+      "blurb": "AMSAT 频率库：9k6 MSK CW，下行 435.950，呼号 DP1NNO。",
+      "transponders": [
+        {
+          "name": "9k6 MSK CW",
+          "down": 435.95,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
     },
     "63210": {
       "name": "JINJUSat 1B",
@@ -1432,6 +2871,23 @@
       ],
       "_unverified": true
     },
+    "63235": {
+      "name": "OTP-2",
+      "down": 400.5,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8*/9k6 GFSK",
+      "blurb": "AMSAT 频率库：4k8*/9k6 GFSK，下行 400.500，呼号 OTP-2。",
+      "transponders": [
+        {
+          "name": "4k8*/9k6 GFSK",
+          "down": 400.5,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ]
+    },
     "63237": {
       "name": "TEVEL2-9",
       "down": 436.4,
@@ -1486,6 +2942,96 @@
       ],
       "_unverified": true
     },
+    "64535": {
+      "name": "UND-ROADS-1",
+      "down": 145.9,
+      "up": 435.4,
+      "tone": 0.0,
+      "mode": "1k2/4k8*/9k6/19k2 FSK",
+      "blurb": "AMSAT 频率库：1k2/4k8*/9k6/19k2 FSK，下行 145.900，上行 435.400。",
+      "transponders": [
+        {
+          "name": "1k2/4k8*/9k6/19k2 FSK",
+          "down": 145.9,
+          "up": 435.4,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "64549": {
+      "name": "UND-ROADS-2",
+      "down": 145.9,
+      "up": 435.4,
+      "tone": 0.0,
+      "mode": "1k2/4k8*/9k6/19k2 FSK",
+      "blurb": "AMSAT 频率库：1k2/4k8*/9k6/19k2 FSK，下行 145.900，上行 435.400。",
+      "transponders": [
+        {
+          "name": "1k2/4k8*/9k6/19k2 FSK",
+          "down": 145.9,
+          "up": 435.4,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "64878": {
+      "name": "InnoSat-16",
+      "down": 435.83,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.830，呼号 RS92S7。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.83,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "64879": {
+      "name": "Geoscan-6",
+      "down": 436.94,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 436.940，呼号 RS92S6。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 436.94,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "64880": {
+      "name": "Geoscan-1",
+      "down": 435.97,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.970，呼号 RS92S1。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.97,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "64881": {
       "name": "RS61S (239ALFEROV)",
       "down": 436.27,
@@ -1502,6 +3048,42 @@
           "note": "9k6 GFSK/Geoscan"
         }
       ]
+    },
+    "64882": {
+      "name": "CSTP-4.3",
+      "down": 437.16,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa",
+      "blurb": "AMSAT 频率库：LoRa，下行 437.160。",
+      "transponders": [
+        {
+          "name": "LoRa",
+          "down": 437.16,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "64883": {
+      "name": "CSTP-4.2",
+      "down": 437.24,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa",
+      "blurb": "AMSAT 频率库：LoRa，下行 437.240。",
+      "transponders": [
+        {
+          "name": "LoRa",
+          "down": 437.24,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
     },
     "64890": {
       "name": "RS92S2 (GEOSCAN-2)",
@@ -1554,6 +3136,78 @@
         }
       ]
     },
+    "64893": {
+      "name": "Geoscan-3",
+      "down": 435.74,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 435.740，呼号 RS92S3。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 435.74,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "64894": {
+      "name": "InnoSat-3",
+      "down": 436.436,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK，下行 436.436，呼号 RS92S0。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK",
+          "down": 436.436,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "64895": {
+      "name": "CSTP-4.1",
+      "down": 437.32,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa",
+      "blurb": "AMSAT 频率库：LoRa，下行 437.320。",
+      "transponders": [
+        {
+          "name": "LoRa",
+          "down": 437.32,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "66653": {
+      "name": "INHA-RoSAT",
+      "down": 437.665,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6 GFSK QPSK",
+      "blurb": "AMSAT 频率库：9k6 GFSK QPSK，下行 437.665，呼号 ROSAT1。",
+      "transponders": [
+        {
+          "name": "9k6 GFSK QPSK",
+          "down": 437.665,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
     "66657": {
       "name": "SPIRONE",
       "down": 436.65,
@@ -1604,6 +3258,60 @@
           "up": 0.0,
           "tone": 0.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "66778": {
+      "name": "Foresail-1p",
+      "down": 437.125,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6_MSK",
+      "blurb": "AMSAT 频率库：9k6_MSK，下行 437.125。",
+      "transponders": [
+        {
+          "name": "9k6_MSK",
+          "down": 437.125,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "67253": {
+      "name": "AIST-2T-1",
+      "down": 435.792,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "FM",
+      "blurb": "AMSAT 频率库：FM，下行 435.792，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "FM",
+          "down": 435.792,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ],
+      "_unverified": true
+    },
+    "67264": {
+      "name": "Kowsar-1.5",
+      "down": 436.1,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "LoRa",
+      "blurb": "AMSAT 频率库：LoRa，下行 436.100，状态 unknown（已失效，仅供监听）。",
+      "transponders": [
+        {
+          "name": "LoRa",
+          "down": 436.1,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -1745,6 +3453,40 @@
       ],
       "_unverified": true
     },
+    "68418": {
+      "name": "OptiSat",
+      "down": 400.3575,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "4k8_GMSK",
+      "blurb": "AMSAT 频率库：4k8_GMSK，下行 400.360；手机的目录用 400.3575（build_catalog.py 的校正项），两端统一取 400.3575。",
+      "transponders": [
+        {
+          "name": "4k8_GMSK",
+          "down": 400.3575,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "App 目录校正 400.356 → 400.3575；哑音该源不提供，记 0。"
+        }
+      ]
+    },
+    "68428": {
+      "name": "Out of the Box",
+      "down": 402.36,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6_GMSK",
+      "blurb": "AMSAT 频率库：9k6_GMSK，下行 402.360，呼号 SPCLKR。",
+      "transponders": [
+        {
+          "name": "9k6_GMSK",
+          "down": 402.36,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ]
+    },
     "68431": {
       "name": "DISCO 2",
       "down": 437.075,
@@ -1762,6 +3504,23 @@
         }
       ],
       "_unverified": true
+    },
+    "68433": {
+      "name": "T_MicroSat-2",
+      "down": 401.025,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6_GFSK",
+      "blurb": "AMSAT 频率库：9k6_GFSK，下行 401.025，呼号 TRON 2。",
+      "transponders": [
+        {
+          "name": "9k6_GFSK",
+          "down": 401.025,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
+        }
+      ]
     },
     "68446": {
       "name": "HADES-SA (SpinnyONE)",
@@ -1811,6 +3570,24 @@
           "up": 0.0,
           "tone": 0.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "68506": {
+      "name": "AEPEX",
+      "down": 437.325,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6*/19k2GFSK",
+      "blurb": "AMSAT 频率库：9k6*/19k2GFSK，下行 437.325，呼号 APX。",
+      "transponders": [
+        {
+          "name": "9k6*/19k2GFSK",
+          "down": 437.325,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
@@ -1917,6 +3694,24 @@
           "up": 0.0,
           "tone": 0.0,
           "note": ""
+        }
+      ],
+      "_unverified": true
+    },
+    "69015": {
+      "name": "CTS-SAT1",
+      "down": 436.15,
+      "up": 0.0,
+      "tone": 0.0,
+      "mode": "9k6_GMSK FSK*",
+      "blurb": "AMSAT 频率库：9k6_GMSK FSK*，下行 436.150。",
+      "transponders": [
+        {
+          "name": "9k6_GMSK FSK*",
+          "down": 436.15,
+          "up": 0.0,
+          "tone": 0.0,
+          "note": "线性的写中心频率；哑音该源不提供，记 0。"
         }
       ],
       "_unverified": true
