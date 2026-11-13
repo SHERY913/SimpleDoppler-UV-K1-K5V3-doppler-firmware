@@ -895,6 +895,18 @@ def refresh_entry_freqs(sats, entries, current_sat=None):
             continue
 
         tr = match_transponder(sat, getattr(e, "trans_name", None))
+        if tr is None and not getattr(sat, "known", False):
+            # 频点表里没有这颗星、名字又对不上任何转发器：它连标称下行都没有，
+            # sat.freq_mhz 只是载入时塞的 145.800 占位值。拿它覆盖操作员手填的
+            # 437.180，就是"手动填了频率、写进电台还是错"的那条路 —— 保留原值，
+            # 记进 missing 让调用方提示。
+            when = getattr(e, "aos", None)
+            try:
+                stamp = when.strftime("%m-%d %H:%M") if when else ""
+            except Exception:
+                stamp = ""
+            missing.append(f"{str(getattr(e, 'name', '?'))[:16]} {stamp}".strip())
+            continue
         if tr is not None:
             f10, u10, c10 = _trans_freqs(tr)
             tname = str(getattr(tr, "name", "") or "")

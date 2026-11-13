@@ -616,6 +616,20 @@ def fill(sat):
     """
     f = FREQ.get(sat.norad)
     if not f:
+        # 有 15 颗星只有转发器行（AMSAT 补进来的 RS90S/MONITOR-3/Lilium-4 那批），
+        # 没有手写的 FREQ 行。直接判 known=False 会让 437.180 的星显示"频率未知"，
+        # 写表时还会被 145.800 那个占位值顶掉。从第 0 条转发器推一份标称出来，
+        # 口径与 FREQ 一致：第 0 条就是默认条目。
+        rows = TRANS.get(sat.norad) or EMBEDDED_TRANS.get(sat.norad) or []
+        if rows:
+            r0 = rows[0]
+            if isinstance(r0, tuple):
+                nm, d, u, t = r0[0], r0[1], r0[2], r0[3] if len(r0) > 3 else 0.0
+            else:
+                nm, d, u, t = r0.name, r0.down_mhz, r0.up_mhz, r0.tone_hz
+            f = (float(d or 0.0), nm or "下行",
+                 (f"{float(t):g} Hz" if t else ""), 0.0, 0.0)
+    if not f:
         sat.known = False
         return sat
     sat.freq_mhz, sat.mode, sat.tone, sat.aprs, sat.sstv = f

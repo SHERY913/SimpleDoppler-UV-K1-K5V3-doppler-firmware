@@ -61,3 +61,11 @@ tools/_*
 # 20261112：逆向第三方 APK 的脚本与产物，不进库（文件保留在磁盘）
 reverse/l4s_decompile.py
 reverse/l4s_xref.out
+
+# 20261113：本机产物，不进库
+#   OUT/ 是 PyInstaller 的 --workpath/--distpath 加 smoke 备份
+#   repo.json 是 gh api 拉下来的仓库元数据
+#   CON 是 Windows 设备名，`>CON` 这类重定向在 MSYS 下误建的空文件
+OUT/
+repo.json
+CON

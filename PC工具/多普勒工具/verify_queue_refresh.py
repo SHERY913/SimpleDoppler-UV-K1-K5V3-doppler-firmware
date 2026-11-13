@@ -176,6 +176,29 @@ check(SRC.count("def refresh_entry_freqs(") == 1,
       f"refresh_entry_freqs 只有一个定义（实际 {SRC.count('def refresh_entry_freqs(')} 个）")
 
 print()
+print("== 7 只有转发器行的星（FREQ 缺行）与真正的未知星 ==")
+import doppler_core as core
+import sat_freq as F
+s = core.Sat(67287, "LUCA (RS90S)", 145.800, "未知", "")
+F.fill(s)
+check(bool(getattr(s, "known", False)),
+      "67287 只有转发器行也能认出来（known=True，界面不再显示“频率未知”）")
+check(abs(s.freq_mhz - 437.18) < 1e-6,
+      f"标称下行从第 0 条转发器推出来 = 437.180（实际 {s.freq_mhz}）")
+check(bool(getattr(s, "transponders", None)),
+      "转发器列表挂上了（否则匹配不到，写表只能落 145.800 占位值）")
+e7 = FakeEntry("LUCA (RS90S)", 67287, None, 43718000)
+c7, m7 = T.refresh_entry_freqs([s], [e7], s)
+check(e7.freq10 == 43718000 and not m7,
+      "手填的 437.180 不被占位值覆盖（现场就是“填了频率、写进去还是错”）")
+u = core.Sat(99999, "SOMETHING", 145.800, "未知", "")
+F.fill(u)
+e8 = FakeEntry("SOMETHING", 99999, None, 43750000)
+c8, m8 = T.refresh_entry_freqs([u], [e8], u)
+check(not u.known and e8.freq10 == 43750000 and bool(m8),
+      "真·未知星保留操作员填的值并进 missing，不拿 145.800 顶掉")
+
+print()
 if FAILS:
     print(f"失败 {len(FAILS)} 条")
     sys.exit(1)
