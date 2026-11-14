@@ -337,6 +337,8 @@ class Link:
                         last = None
                         break
                     last = tr("回读不符 @0x{here:06X}").format(here=here)
+                except serial.SerialException:
+                    raise
                 except Exception as e:
                     last = str(e)
                 time.sleep(0.04 * (attempt + 1))
@@ -383,6 +385,8 @@ class Link:
             for attempt in range(3):
                 try:
                     r = self.ask(0x0764, payload, 11 + n)   # Addr(4)+Size(2)+Status(1)+Data(n)
+                except serial.SerialException:
+                    raise
                 except Exception as e:
                     last = e
                     time.sleep(0.05 * (attempt + 1))
@@ -894,6 +898,9 @@ def refresh_entry_freqs(sats, entries, current_sat=None):
             missing.append(f"{str(getattr(e, 'name', '?'))[:16]} {stamp}".strip())
             continue
 
+        if getattr(e, "trans_name", None) in (i18n.tr("自定义"), "\u81ea\u5b9a\u4e49"):
+            continue
+
         tr = match_transponder(sat, getattr(e, "trans_name", None))
         if tr is None and not getattr(sat, "known", False):
             # 频点表里没有这颗星、名字又对不上任何转发器：它连标称下行都没有，
@@ -1019,9 +1026,13 @@ class Tool(tk.Tk):
         return base
 
     def save_cfg(self):
+        tmp = CONFIG + ".tmp"
         try:
-            with open(CONFIG, "w", encoding="utf-8") as f:
+            with open(tmp, "w", encoding="utf-8") as f:
                 json.dump(self.cfg, f, indent=2)
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(tmp, CONFIG)
         except Exception:
             pass
 
@@ -2430,7 +2441,8 @@ class Tool(tk.Tk):
         sat = self.sat
         tr = self.sel_trans()
         for p in sel:
-            if not any(q is p for q in self.queue):
+            key = (getattr(p, "norad", None), int(p.aos.timestamp()))
+            if not any((getattr(q, "norad", None), int(q.aos.timestamp())) == key for q in self.queue):
                 # remember this pass's own satellite plan so a mixed queue
                 # still writes the right frequency / uplink / tone per entry
                 p.name = sat.name[:16]
@@ -2473,6 +2485,14 @@ class Tool(tk.Tk):
         if not port:
             messagebox.showerror(tr("串口"), tr("先选串口"))
             return
+        if self.sat and self.cb_trans.current() == len(self._trs()):
+            trs = self._trs()
+            base_tone = trs[0].tone_hz if trs else (getattr(self.sat, "up_tone", 0.0) or 0.0)
+            if sat_freq.make_custom_transponder(
+                    self.ent_custom_down.get(), self.ent_custom_up.get(), base_tone) is None:
+                self._custom_bad(True)
+                messagebox.showerror(tr("频率"), tr("自定义频率无效，请检查下行/上行输入"))
+                return
         sel = list(self.queue) if self.queue else [p for p in self.rows if id(p) in self.checked]
         if not sel:
             messagebox.showerror(tr("过境"), tr("没勾选过境"))
@@ -2669,22 +2689,34 @@ class Tool(tk.Tk):
     def _writer(self, port, table, sectors, allow_unlock=False, tz_hours=None):
         notes = {}
         def tick(text, done, total):
-            self.after(0, lambda: (self.prog.configure(value=100 * done / max(1, total)),
-                                   self.lbl_status.config(text=text, fg=DIM)))
+            try:
+                self.after(0, lambda: (self.prog.configure(value=100 * done / max(1, total)),
+                                       self.lbl_status.config(text=text, fg=DIM)))
+            except (tk.TclError, RuntimeError):
+                pass
         try:
             st = radio_write(port, table, allow_unlock=allow_unlock,
                              tick=tick, notes=notes, tz_hours=tz_hours)
-            self.after(0, lambda: self.lbl_status.config(
-                text=tr("✓ 完成 · {n} 字节 · {s} 扇区{fw}").format(
-                    n=st['len'], s=st['sectors'], fw=notes.get('fw', '')), fg=ACC))
+            try:
+                self.after(0, lambda: self.lbl_status.config(
+                    text=tr("✓ 完成 · {n} 字节 · {s} 扇区{fw}").format(
+                        n=st['len'], s=st['sectors'], fw=notes.get('fw', '')), fg=ACC))
+            except (tk.TclError, RuntimeError):
+                pass
         except Exception as e:
             msg = str(e)
             log_line("FAIL", msg.replace(chr(10), " / "))
-            self.after(0, lambda: self.lbl_status.config(text=tr("✗ {msg}").format(msg=msg), fg="#d98a5a"))
+            try:
+                self.after(0, lambda: self.lbl_status.config(text=tr("✗ {msg}").format(msg=msg), fg="#d98a5a"))
+            except (tk.TclError, RuntimeError):
+                pass
         finally:
-            self.after(0, lambda: (setattr(self, "busy", False),
-                                   self.btn_write.config(state="normal"),
-                                   self.prog.configure(value=0)))
+            try:
+                self.after(0, lambda: (setattr(self, "busy", False),
+                                       self.btn_write.config(state="normal"),
+                                       self.prog.configure(value=0)))
+            except (tk.TclError, RuntimeError):
+                pass
 
 if __name__ == "__main__":
     # 打包成 exe 之后这是窗口程序：起不来时屏幕上什么都不会留，

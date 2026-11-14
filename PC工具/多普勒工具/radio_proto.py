@@ -105,7 +105,7 @@ def parse_replies(buf: bytearray) -> tuple[list[Request | None], bytearray]:
             return out, buf[i:]
         size = buf[i + 2] | (buf[i + 3] << 8)
         if size < 4 or size > 1024:                   # RadioLink.kt:124 的长度上限
-            buf = bytearray(buf[i + 4:])
+            buf = bytearray(buf[i + 2:])
             continue
         if i + size + 8 > len(buf):
             return out, buf[i:]
@@ -114,9 +114,13 @@ def parse_replies(buf: bytearray) -> tuple[list[Request | None], bytearray]:
         crc_rx = body[size] | (body[size + 1] << 8)
         if foot != bytes([0xDC, 0xBA]) or (crc_rx != 0xFFFF and crc_rx != crc16(body[:size])):
             out.append(None)
-            buf = bytearray(buf[i + size + 8:])
+            buf = bytearray(buf[i + 2:])
             continue
         paylen = body[2] | (body[3] << 8)
+        if 4 + paylen > size:
+            out.append(None)
+            buf = bytearray(buf[i + 2:])
+            continue
         out.append(Request(body[0] | (body[1] << 8), paylen, body[4:4 + paylen]))
         buf = bytearray(buf[i + size + 8:])
 
