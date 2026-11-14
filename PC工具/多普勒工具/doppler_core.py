@@ -288,7 +288,8 @@ def _curl_text(url, timeout=40):
             ["curl", "-sSL", "--max-time", str(timeout),
              "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
              "-o", path, url],
-            check=True, timeout=timeout + 10)
+            check=True, timeout=timeout + 10,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         with io.open(path, encoding="utf-8", errors="replace") as f:
             out = f.read()
         if not out.strip():

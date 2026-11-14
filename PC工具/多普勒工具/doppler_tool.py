@@ -56,15 +56,22 @@ except Exception:
 
 APP_DIR = DATA_DIR       # 兼容旧引用；路径的唯一出处在上面
 
-BG = "#1e2224"
-FG = "#d9ded9"
-DIM = "#8a978d"
-ACC = "#7fc25c"
-HOT = "#d8b45a"
-CARD = "#262b2d"
-SIDE = "#22272a"
-LINE = "#39423f"
-BAD = "#5a2a2a"       # 输入框标红：框里的数给不出可用频率
+BG = "#12151C"
+FG = "#E2E8F0"
+DIM = "#94A3B8"
+ACC = "#3B82F6"
+OK = "#10B981"
+HOT = "#F59E0B"
+WARN = "#F59E0B"
+ERR = "#EF4444"
+CARD = "#1B202B"
+SIDE = "#161A23"
+INPUT_BG = "#262D3D"
+BTN_SEC = "#232A3B"
+BTN_HOV = "#2E374D"
+SEL_BG = "#1E3A5F"
+LINE = "#262D3D"
+BAD = "#5A2429"       # 输入框标红：框里的数给不出可用频率
 
 # 转发器下拉最后一项。它只是个显示项，不在 sat.transponders 里：
 # 索引 == len(transponders) 时选中就是它（见 sel_trans）。
@@ -996,7 +1003,10 @@ class Tool(tk.Tk):
         self.group_ok = False
 
         self.build()
+        self.reload_ports(async_scan=True)
         self.load_group()
+        self.after(100, lambda: self.load_group(force=True))
+        self.after(600_000, self._auto_refresh_tle)
 
     # --- config -----------------------------------------------------
     def load_cfg(self):
@@ -1165,55 +1175,88 @@ class Tool(tk.Tk):
     def build(self):
         style = ttk.Style(self)
         style.theme_use("clam")
-        style.configure("TCombobox", fieldbackground=CARD, background=CARD,
-                        foreground=FG, arrowcolor=FG, borderwidth=0)
+        style.configure("TCombobox", fieldbackground=INPUT_BG, background=BTN_SEC,
+                        foreground=FG, arrowcolor=FG, borderwidth=0, padding=4)
         # clam 主题的 readonly 态走单独一套 element color：只 configure 上面那条
         # 时输入区还是白底，配上 FG 的浅色字就是"看起来空着"。这里把 readonly /
         # disabled 的底色和字色一起钉住。
         style.map("TCombobox",
-                  fieldbackground=[("readonly", CARD), ("disabled", CARD)],
+                  fieldbackground=[("readonly", INPUT_BG), ("disabled", CARD)],
                   foreground=[("readonly", FG), ("disabled", DIM)],
-                  selectbackground=[("readonly", CARD)],
+                  selectbackground=[("readonly", INPUT_BG)],
                   selectforeground=[("readonly", FG)],
                   arrowcolor=[("readonly", FG), ("disabled", DIM)])
         style.configure("Treeview", background=CARD, fieldbackground=CARD,
-                        foreground=FG, rowheight=27, borderwidth=0)
-        style.configure("Treeview.Heading", background="#2f3538", foreground=DIM,
-                        borderwidth=0)
-        style.map("Treeview.Heading", background=[("active", "#3a4448")])
-        style.map("Treeview", background=[("selected", "#3d5340")])
+                        foreground=FG, rowheight=28, borderwidth=0,
+                        font=("Microsoft YaHei UI", 9))
+        style.configure("Treeview.Heading", background=SIDE, foreground=DIM,
+                        borderwidth=0, font=("Microsoft YaHei UI", 9, "bold"),
+                        relief="flat")
+        style.map("Treeview.Heading", background=[("active", BTN_HOV)])
+        style.map("Treeview", background=[("selected", SEL_BG)],
+                  foreground=[("selected", FG)])
+        style.configure("TProgressbar", troughcolor=INPUT_BG, background=ACC,
+                        borderwidth=0, thickness=6)
 
-        wrap = tk.Frame(self, bg=BG)
+        root_wrap = tk.Frame(self, bg=BG)
+        root_wrap.pack(fill="both", expand=True)
+
+        # ---------------- topbar: title / port + badge / lang
+        topbar = tk.Frame(root_wrap, bg=SIDE, height=48,
+                          highlightthickness=1, highlightbackground=LINE)
+        topbar.pack(side="top", fill="x")
+        topbar.pack_propagate(False)
+
+        _lbl_title = tk.Label(topbar, bg=SIDE, fg=FG,
+                              font=("Microsoft YaHei UI", 12, "bold"), anchor="w")
+        def _top_title():
+            _lbl_title.config(text=f"{tr(APP_NAME)}  v{APP_VERSION}")
+        _top_title()
+        self._lang_hooks.append(_top_title)
+        _lbl_title.pack(side="left", padx=(16, 8))
+
+        tk.Label(topbar, text="F4HWN SSTV v6.3.0 · BG0FPJ", bg=SIDE, fg=DIM,
+                 font=("Segoe UI", 9), anchor="w").pack(side="left", padx=(0, 12))
+
+        # 右侧：语言切换 + 串口选择 + 状态徽章
+        self.btn_lang = tk.Button(topbar, text="中" if i18n.get_language() == "zh" else "EN",
+                                  command=lambda: self.set_language(
+                                      "en" if i18n.get_language() == "zh" else "zh"),
+                                  bg=BTN_SEC, fg=FG, bd=0, padx=10, pady=4,
+                                  highlightthickness=1, highlightbackground=LINE,
+                                  activebackground=BTN_HOV, activeforeground=FG,
+                                  font=("Consolas", 9, "bold"), cursor="hand2")
+        self.btn_lang.pack(side="right", padx=(6, 14), pady=8)
+
+        self.lbl_port_badge = tk.Label(topbar, text="", bg=BTN_SEC, fg=DIM,
+                                       font=("Microsoft YaHei UI", 8, "bold"),
+                                       padx=8, pady=3)
+        self.lbl_port_badge.pack(side="right", padx=(4, 6), pady=10)
+
+        self.btn_port = tk.Button(topbar, text="端口",
+                                  command=lambda: self.reload_ports(async_scan=True),
+                                  bg=BTN_SEC, fg=FG, bd=0, padx=10, pady=4,
+                                  highlightthickness=1, highlightbackground=LINE,
+                                  activebackground=BTN_HOV, activeforeground=FG,
+                                  disabledforeground=DIM,
+                                  font=("Microsoft YaHei UI", 9), cursor="hand2")
+        self._tx(self.btn_port, "端口").pack(side="right", padx=(4, 2), pady=8)
+
+        self.cb_port = ttk.Combobox(topbar, values=[], width=12)
+        self.cb_port.set(self.cfg.get("port") or "")
+        self.cb_port.pack(side="right", padx=(4, 4), pady=9)
+
+        wrap = tk.Frame(root_wrap, bg=BG)
         wrap.pack(fill="both", expand=True)
 
         # ---------------- left: satellite list
-        left = tk.Frame(wrap, bg=SIDE, width=324)
+        left = tk.Frame(wrap, bg=SIDE, width=340,
+                        highlightthickness=1, highlightbackground=LINE)
         left.pack(side="left", fill="y")
         left.pack_propagate(False)
 
-        # 基座致谢：电台固件是 F4HWN 的 SSTV v6.3.0，多普勒这一层是本工具加的。
-        # 侧栏底部常驻一行，不靠标题栏承载（标题栏会被任务栏截断）。
-        # 这里同时是「关于」：产品名 + 版本 + 作者呼号都在这一行里。
-        _lbl_about = tk.Label(left, bg=SIDE, fg=DIM, font=("Microsoft YaHei UI", 8),
-                              justify="left", anchor="w")
-        def _about():
-            _lbl_about.config(text=tr("{app} v{v}\nF4HWN SSTV v6.3.0 · BG0FPJ").format(
-                app=tr(APP_NAME), v=APP_VERSION))
-        _about()
-        self._lang_hooks.append(_about)
-        _lbl_about.pack(side="bottom", fill="x", padx=10, pady=(0, 8))
-
-        # 语言开关：中/EN 一键切换，选择存进 cfg，重启保持。
-        self.btn_lang = tk.Button(left, text="中" if i18n.get_language() == "zh" else "EN",
-                                  command=lambda: self.set_language(
-                                      "en" if i18n.get_language() == "zh" else "zh"),
-                                  bg="#2f3538", fg=DIM, bd=0, padx=8, pady=2,
-                                  activebackground="#3a4448", activeforeground=FG,
-                                  font=("Consolas", 9))
-        self.btn_lang.pack(side="bottom", anchor="w", padx=10, pady=(0, 4))
-
-        self._tx(tk.Label(left, text="卫星", bg=SIDE, fg=DIM,
-                 font=("Microsoft YaHei UI", 9), anchor="w"), "卫星").pack(fill="x", padx=10, pady=(10, 2))
+        self._tx(tk.Label(left, text="卫星", bg=SIDE, fg=FG,
+                 font=("Microsoft YaHei UI", 10, "bold"), anchor="w"), "卫星").pack(fill="x", padx=12, pady=(12, 4))
 
         row_tle = tk.Frame(left, bg=SIDE)
         row_tle.pack(fill="x", padx=10, pady=(4, 0))
@@ -1222,9 +1265,10 @@ class Tool(tk.Tk):
         # （以前有缓存就直接画缓存，一次网络都没发却报"已更新"，U-P-2）。
         self.btn_tle = tk.Button(row_tle, text="更新 TLE",
                                  command=lambda: self.load_group(force=True),
-                                 bg="#2f3538", fg=FG, bd=0, padx=10, pady=3,
-                                 activebackground="#3a4448", activeforeground=FG,
-                                 font=("Microsoft YaHei UI", 9))
+                                 bg=BTN_SEC, fg=FG, bd=0, padx=10, pady=4,
+                                 highlightthickness=1, highlightbackground=LINE,
+                                 activebackground=BTN_HOV, activeforeground=FG,
+                                 font=("Microsoft YaHei UI", 9), cursor="hand2")
         self._lang_hooks.append(lambda: self.btn_tle.config(text=tr("更新 TLE")))
         self.btn_tle.pack(side="left")
 
@@ -1235,29 +1279,32 @@ class Tool(tk.Tk):
         # 时区口径写在界面上：默认系统（自带政策与夏令时），可手动覆盖（U-P-19 终版）。
         # 输入框必须带可见边框并自动聚焦——上一版跟背景同色，没人看出那是能打的框。
         row_tz = tk.Frame(left, bg=SIDE)
-        row_tz.pack(fill="x", padx=10, pady=(2, 0))
+        row_tz.pack(fill="x", padx=12, pady=(6, 0))
         self.cb_tz_mode = ttk.Combobox(row_tz, width=10, state="readonly")
         self.cb_tz_mode.bind("<<ComboboxSelected>>", self.on_tz_mode)
         self.cb_tz_mode.pack(side="left")
         self.e_tz = tk.Entry(row_tz, width=7, bd=0,
-                             bg=CARD, fg=FG, insertbackground=FG,
+                             bg=INPUT_BG, fg=FG, insertbackground=FG,
                              justify="center", font=("Consolas", 10),
                              highlightthickness=1, highlightbackground=LINE,
                              highlightcolor=ACC)
         self.e_tz.bind("<KeyRelease>", self.on_tz_edit)
-        self.e_tz.pack(side="left", padx=(6, 0), ipady=2)
+        self.e_tz.pack(side="left", padx=(6, 0), ipady=3)
         self.lbl_tz = tk.Label(left, text="", bg=SIDE, fg=DIM,
                                font=("Microsoft YaHei UI", 8), anchor="w",
                                justify="left")
-        self.lbl_tz.pack(fill="x", padx=10, pady=(2, 0))
+        self.lbl_tz.pack(fill="x", padx=12, pady=(2, 0))
         self._lang_hooks.append(self._tz_row_refresh)
         self._tz_row_refresh()
 
         self._tx(tk.Label(left, text="搜索：名字/别名/NORAD", bg=SIDE, fg=DIM,
                           font=("Microsoft YaHei UI", 9), anchor="w"),
-                 "搜索：名字/别名/NORAD").pack(fill="x", padx=10, pady=(10, 2))
-        self.e_search = tk.Entry(left, bg=CARD, fg=FG, bd=0, insertbackground=FG)
-        self.e_search.pack(fill="x", padx=10, ipady=4)
+                 "搜索：名字/别名/NORAD").pack(fill="x", padx=12, pady=(10, 3))
+        self.e_search = tk.Entry(left, bg=INPUT_BG, fg=FG, bd=0,
+                                 insertbackground=FG, font=("Microsoft YaHei UI", 9),
+                                 highlightthickness=1, highlightbackground=LINE,
+                                 highlightcolor=ACC)
+        self.e_search.pack(fill="x", padx=12, ipady=5)
         self.e_search.insert(0, "")
         self.e_search.bind("<KeyRelease>", lambda e: self.fill_list())
         # Esc 清空重列：搜完想回到"只看业余星"那一屏，不用一段段删字。
@@ -1265,28 +1312,29 @@ class Tool(tk.Tk):
                                                   self.fill_list()))
 
         sortrow = tk.Frame(left, bg=SIDE)
-        sortrow.pack(fill="x", padx=10, pady=(6, 0))
+        sortrow.pack(fill="x", padx=12, pady=(8, 0))
         self.list_sort = "time"
         self.sort_btns = {}
         for key, txt in (("time", "过境"), ("elev", "仰角"), ("name", "名称")):
-            b = tk.Button(sortrow, text=tr(txt), bd=0, padx=6, pady=2,
-                          bg=CARD, fg=DIM, activebackground="#3a4448",
+            b = tk.Button(sortrow, text=tr(txt), bd=0, padx=8, pady=3,
+                          bg=CARD, fg=DIM, activebackground=BTN_HOV,
                           activeforeground=FG, font=("Microsoft YaHei UI", 8),
+                          cursor="hand2",
                           command=lambda k=key: self.set_sort(k))
-            b.pack(side="left", padx=(0, 3))
+            b.pack(side="left", padx=(0, 4))
             self._lang_hooks.append(lambda b=b, t=txt: b.config(text=tr(t)))
             self.sort_btns[key] = b
 
-        lb_frame = tk.Frame(left, bg=SIDE)
-        lb_frame.pack(fill="both", expand=True, padx=10, pady=(6, 4))
+        lb_frame = tk.Frame(left, bg=CARD, highlightthickness=1, highlightbackground=LINE)
+        lb_frame.pack(fill="both", expand=True, padx=12, pady=(8, 6))
         style = ttk.Style()
         style.configure("Sat.Treeview", background=CARD, fieldbackground=CARD,
-                        foreground=FG, rowheight=22, borderwidth=0,
+                        foreground=FG, rowheight=24, borderwidth=0,
                         font=("Consolas", 9))
-        style.configure("Sat.Treeview.Heading", background="#2b3134",
+        style.configure("Sat.Treeview.Heading", background=SIDE,
                         foreground=DIM, borderwidth=0,
-                        font=("Microsoft YaHei UI", 8))
-        style.map("Sat.Treeview", background=[("selected", "#3d5340")],
+                        font=("Microsoft YaHei UI", 8, "bold"))
+        style.map("Sat.Treeview", background=[("selected", SEL_BG)],
                   foreground=[("selected", FG)])
         style.layout("Sat.Treeview", [("Sat.Treeview.treearea", {"sticky": "nswe"})])
         cols = ("name", "time", "el")
@@ -1307,10 +1355,12 @@ class Tool(tk.Tk):
         self.set_sort("time")
 
         rowf = tk.Frame(left, bg=SIDE)
-        rowf.pack(fill="x", padx=10, pady=(0, 10))
+        rowf.pack(fill="x", padx=12, pady=(0, 12))
         self._tx(tk.Button(rowf, text="★ 收藏", command=self.toggle_fav,
-                  bg="#2f3538", fg=HOT, bd=0, padx=8, pady=3,
-                  activebackground="#3a4448", activeforeground=HOT), "★ 收藏").pack(side="left")
+                  bg=BTN_SEC, fg=HOT, bd=0, padx=10, pady=4,
+                  highlightthickness=1, highlightbackground=LINE,
+                  activebackground=BTN_HOV, activeforeground=HOT,
+                  font=("Microsoft YaHei UI", 9), cursor="hand2"), "★ 收藏").pack(side="left")
         self.lbl_count = tk.Label(rowf, text="", bg=SIDE, fg=DIM,
                                   font=("Consolas", 8))
         self.lbl_count.pack(side="right")
@@ -1320,15 +1370,11 @@ class Tool(tk.Tk):
         right.pack(side="left", fill="both", expand=True)
 
         # card
-        card = tk.Frame(right, bg=CARD)
-        card.pack(fill="x", padx=14, pady=(12, 6))
-
-        self.canvas = tk.Canvas(card, width=106, height=106, bg=CARD,
-                                highlightthickness=0)
-        self.canvas.pack(side="left", padx=(12, 10), pady=10)
+        card = tk.Frame(right, bg=CARD, highlightthickness=1, highlightbackground=LINE)
+        card.pack(fill="x", padx=16, pady=(14, 8))
 
         info = tk.Frame(card, bg=CARD)
-        info.pack(side="left", fill="both", expand=True, padx=(0, 14), pady=10)
+        info.pack(side="left", fill="both", expand=True, padx=14, pady=10)
 
         r1 = tk.Frame(info, bg=CARD)
         r1.pack(fill="x")
@@ -1368,15 +1414,17 @@ class Tool(tk.Tk):
         self.frm_custom = tk.Frame(info, bg=CARD)
         self._tx(tk.Label(self.frm_custom, text="下行 MHz（标称）", bg=CARD, fg=DIM,
                  font=("Microsoft YaHei UI", 8)), "下行 MHz（标称）").pack(side="left")
-        self.ent_custom_down = tk.Entry(self.frm_custom, width=11, bg=CARD, fg=ACC,
+        self.ent_custom_down = tk.Entry(self.frm_custom, width=11, bg=INPUT_BG, fg=ACC,
                                         bd=0, insertbackground=FG, justify="center",
-                                        font=("Consolas", 9))
+                                        font=("Consolas", 9), highlightthickness=1,
+                                        highlightbackground=LINE, highlightcolor=ACC)
         self.ent_custom_down.pack(side="left", padx=(4, 12), ipady=3)
         self._tx(tk.Label(self.frm_custom, text="上行 MHz（空=仅接收）", bg=CARD, fg=DIM,
                  font=("Microsoft YaHei UI", 8)), "上行 MHz（空=仅接收）").pack(side="left")
-        self.ent_custom_up = tk.Entry(self.frm_custom, width=11, bg=CARD, fg=FG,
+        self.ent_custom_up = tk.Entry(self.frm_custom, width=11, bg=INPUT_BG, fg=FG,
                                       bd=0, insertbackground=FG, justify="center",
-                                      font=("Consolas", 9))
+                                      font=("Consolas", 9), highlightthickness=1,
+                                      highlightbackground=LINE, highlightcolor=ACC)
         self.ent_custom_up.pack(side="left", padx=(4, 12), ipady=3)
         self._tx(tk.Label(self.frm_custom, text="AOS 时刻的值", bg=CARD, fg=DIM,
                  font=("Microsoft YaHei UI", 8)), "AOS 时刻的值").pack(side="left")
@@ -1394,30 +1442,38 @@ class Tool(tk.Tk):
                                   font=("Microsoft YaHei UI", 9))
         self.lbl_blurb.pack(fill="x", expand=False, pady=(3, 0))
 
-        # passes table
-        mid = tk.Frame(right, bg=BG)
-        mid.pack(fill="both", expand=True, padx=14, pady=4)
+        # bottom bars: pack(side="bottom") BEFORE mid/det so expand=True never squeezes them out
+        line2_card = tk.Frame(right, bg=CARD, highlightthickness=1, highlightbackground=LINE)
+        line2_card.pack(side="bottom", fill="x", padx=16, pady=(0, 16))
 
-        fbar = tk.Frame(mid, bg=BG)
-        fbar.pack(fill="x", pady=(0, 4))
-        self._tx(tk.Label(fbar, text="筛选", bg=BG, fg=DIM,
-                 font=("Microsoft YaHei UI", 8)), "筛选").pack(side="left", padx=(0, 6))
+        bot_card = tk.Frame(right, bg=CARD, highlightthickness=1, highlightbackground=LINE)
+        bot_card.pack(side="bottom", fill="x", padx=16, pady=(0, 8))
+
+        # passes table card
+        mid = tk.Frame(right, bg=CARD, highlightthickness=1, highlightbackground=LINE)
+        mid.pack(fill="both", expand=True, padx=16, pady=(0, 8))
+
+        fbar = tk.Frame(mid, bg=CARD)
+        fbar.pack(fill="x", padx=12, pady=(10, 6))
+        self._tx(tk.Label(fbar, text="筛选", bg=CARD, fg=DIM,
+                 font=("Microsoft YaHei UI", 8, "bold")), "筛选").pack(side="left", padx=(0, 8))
         self.el_filter = 0.0
         self.only_checked = False
         self.fbtns = {}
         for val, txt in ((0.0, "全部"), (20.0, "≥20°"), (40.0, "≥40°"),
                          (60.0, "≥60°")):
-            b = tk.Button(fbar, text=tr(txt), bd=0, padx=8, pady=1,
-                          bg=CARD, fg=DIM, activebackground="#3a4448",
+            b = tk.Button(fbar, text=tr(txt), bd=0, padx=10, pady=3,
+                          bg=BTN_SEC, fg=DIM, activebackground=BTN_HOV,
                           activeforeground=FG, font=("Microsoft YaHei UI", 8),
+                          cursor="hand2",
                           command=lambda v=val: self.set_filter(v))
             b.pack(side="left", padx=(0, 4))
             self._lang_hooks.append(lambda b=b, t=txt: b.config(text=tr(t)))
             self.fbtns[val] = b
-        self.btn_checked = tk.Button(fbar, text="只看勾选", bd=0, padx=8, pady=1,
-                                     bg=CARD, fg=DIM, activebackground="#3a4448",
+        self.btn_checked = tk.Button(fbar, text="只看勾选", bd=0, padx=10, pady=3,
+                                     bg=BTN_SEC, fg=DIM, activebackground=BTN_HOV,
                                      activeforeground=FG,
-                                     font=("Microsoft YaHei UI", 8),
+                                     font=("Microsoft YaHei UI", 8), cursor="hand2",
                                      command=self.toggle_only_checked)
         self._lang_hooks.append(lambda: self.btn_checked.config(text=tr("只看勾选")))
         self.btn_checked.pack(side="left", padx=(8, 0))
@@ -1436,20 +1492,20 @@ class Tool(tk.Tk):
             self.tree.column(c, width=w, minwidth=w - 20, anchor="w",
                              stretch=False)
         self.tree.tag_configure("hot", foreground=HOT)
-        self.tree.tag_configure("picked", background="#33413a")
-        self.tree.pack(fill="both", expand=True)
+        self.tree.tag_configure("picked", background=SEL_BG)
+        self.tree.pack(fill="both", expand=True, padx=12)
         self.tree.bind("<<TreeviewSelect>>", self.on_row)
         self.tree.bind("<Button-1>", self.on_click)
 
         self.lbl_hint = tk.Label(
             mid, text="点表头排序",
-            bg=BG, fg=DIM, anchor="w", font=("Microsoft YaHei UI", 8))
+            bg=CARD, fg=DIM, anchor="w", font=("Microsoft YaHei UI", 8))
         self._lang_hooks.append(lambda: self.lbl_hint.config(text=tr("点表头排序")))
-        self.lbl_hint.pack(fill="x", pady=(3, 0))
+        self.lbl_hint.pack(fill="x", padx=12, pady=(4, 8))
 
         # detail
-        det = tk.Frame(right, bg=CARD)
-        det.pack(fill="x", padx=14, pady=(6, 4))
+        det = tk.Frame(right, bg=CARD, highlightthickness=1, highlightbackground=LINE)
+        det.pack(fill="x", padx=16, pady=(0, 8))
 
         self.detail = tk.Text(det, height=10, bg=CARD, fg=FG, bd=0,
                               highlightthickness=0, wrap="none",
@@ -1462,59 +1518,57 @@ class Tool(tk.Tk):
         self.detail.tag_configure("o", foreground=HOT)
         self.detail.config(state="disabled")
 
-        # params
-        bot = tk.Frame(right, bg=BG)
-        bot.pack(fill="x", padx=14, pady=(2, 0))
+        # params card
+        bot = tk.Frame(bot_card, bg=CARD)
+        bot.pack(fill="x", padx=12, pady=10)
 
-        self._tx(tk.Label(bot, text="纬度", bg=BG, fg=DIM,
+        self._tx(tk.Label(bot, text="纬度", bg=CARD, fg=DIM,
                  font=("Microsoft YaHei UI", 9)), "纬度").pack(side="left")
         self.e_lat = self.entry(bot, str(self.cfg["lat"]), 8)
-        self._tx(tk.Label(bot, text="经度", bg=BG, fg=DIM,
+        self._tx(tk.Label(bot, text="经度", bg=CARD, fg=DIM,
                  font=("Microsoft YaHei UI", 9)), "经度").pack(side="left")
         self.e_lon = self.entry(bot, str(self.cfg["lon"]), 8)
 
-        self._tx(tk.Label(bot, text="天数", bg=BG, fg=DIM,
-                 font=("Microsoft YaHei UI", 9)), "天数").pack(side="left", padx=(12, 0))
+        self._tx(tk.Label(bot, text="天数", bg=CARD, fg=DIM,
+                 font=("Microsoft YaHei UI", 9)), "天数").pack(side="left", padx=(8, 0))
         self.e_days = self.entry(bot, str(self.cfg["days"]), 4)
-        self._tx(tk.Label(bot, text="仰角°", bg=BG, fg=DIM,
+        self._tx(tk.Label(bot, text="仰角°", bg=CARD, fg=DIM,
                  font=("Microsoft YaHei UI", 9)), "仰角°").pack(side="left")
         self.e_el = self.entry(bot, str(self.cfg["min_el"]), 4)
-        self._tx(tk.Label(bot, text="间隔s", bg=BG, fg=DIM,
+        self._tx(tk.Label(bot, text="间隔s", bg=CARD, fg=DIM,
                  font=("Microsoft YaHei UI", 9)), "间隔s").pack(side="left")
         self.e_step = self.entry(bot, str(self.cfg["step"]), 4)
 
-        self._tx(tk.Button(bot, text="计算", command=self.recalc,
-                  bg="#2f3538", fg=FG, bd=0, padx=10, pady=4,
-                  activebackground="#3a4448", activeforeground=FG), "计算").pack(side="left", padx=10)
-
-        # write row
-        line2 = tk.Frame(right, bg=BG)
-        line2.pack(fill="x", padx=14, pady=(8, 12))
-
-        self.cb_port = ttk.Combobox(line2, values=self.ports(), width=12)
-        self.cb_port.set(self.cfg.get("port") or "")
-        self.cb_port.pack(side="left")
-
-        self._tx(tk.Button(line2, text="端口", command=self.reload_ports,
-                  bg="#2f3538", fg=FG, bd=0, padx=8, pady=4,
-                  activebackground="#3a4448", activeforeground=FG), "端口").pack(side="left", padx=6)
+        self.btn_calc = tk.Button(bot, text="计算", command=self.recalc,
+                                  bg=ACC, fg="#FFFFFF", bd=0, padx=14, pady=5,
+                                  activebackground="#2563EB", activeforeground="#FFFFFF",
+                                  disabledforeground=DIM,
+                                  font=("Microsoft YaHei UI", 9, "bold"),
+                                  cursor="hand2")
+        self._tx(self.btn_calc, "计算").pack(side="right", padx=(6, 0))
+        line2 = tk.Frame(line2_card, bg=CARD)
+        line2.pack(fill="x", padx=12, pady=12)
 
         # 顺序改了：「加入待写 / 清空」是一组，中间隔一条竖线再把「写入电台」
         # 放到最右边。以前两个按钮紧挨着，手一滑点到大绿按钮就直接擦 8+ 个
         # 扇区（U-P-12）；现在点下去还会先弹二次确认。
         self.btn_queue = tk.Button(line2, text="＋ 待写", command=self.queue_add,
-                                   bg="#2f3538", fg=FG, bd=0, padx=10, pady=4,
-                                   activebackground="#3a4448", activeforeground=FG)
+                                   bg=BTN_SEC, fg=FG, bd=0, padx=12, pady=5,
+                                   highlightthickness=1, highlightbackground=LINE,
+                                   activebackground=BTN_HOV, activeforeground=FG,
+                                   font=("Microsoft YaHei UI", 9), cursor="hand2")
         self._lang_hooks.append(lambda: self.btn_queue.config(text=tr("＋ 待写")))
-        self.btn_queue.pack(side="left", padx=(2, 2))
+        self.btn_queue.pack(side="left", padx=(0, 6))
 
         self.btn_qclear = tk.Button(line2, text="清空", command=self.queue_clear,
-                                    bg="#2f3538", fg=FG, bd=0, padx=8, pady=4,
-                                    activebackground="#3a4448", activeforeground=FG)
+                                    bg=BTN_SEC, fg=ERR, bd=0, padx=10, pady=5,
+                                    highlightthickness=1, highlightbackground=LINE,
+                                    activebackground=BTN_HOV, activeforeground=ERR,
+                                    font=("Microsoft YaHei UI", 9), cursor="hand2")
         self._lang_hooks.append(lambda: self.btn_qclear.config(text=tr("清空")))
         self.btn_qclear.pack(side="left")
 
-        tk.Frame(line2, bg=LINE, width=1, height=24).pack(side="left", padx=18)
+        tk.Frame(line2, bg=LINE, width=1, height=24).pack(side="left", padx=14)
 
         # 表区在原厂镜像上切在语音包中间，第一次装表必然撞上固件的防呆。
         # 这个勾选框就是"我明确知道要清掉那块地"的唯一入口：默认不勾，
@@ -1522,25 +1576,26 @@ class Tool(tk.Tk):
         self.var_unlock = tk.BooleanVar(value=False)
         self.chk_unlock = tk.Checkbutton(
             line2, text="允许擦除表区", variable=self.var_unlock,
-            bg=BG, fg=DIM, selectcolor="#2f3538", bd=0, highlightthickness=0,
-            activebackground=BG, activeforeground=FG,
+            bg=CARD, fg=WARN, selectcolor=INPUT_BG, bd=0, highlightthickness=0,
+            activebackground=CARD, activeforeground=WARN,
             font=("Microsoft YaHei UI", 9))
         self._lang_hooks.append(lambda: self.chk_unlock.config(text=tr("允许擦除表区")))
-        self.chk_unlock.pack(side="left", padx=(0, 2))
+        self.chk_unlock.pack(side="left", padx=(0, 6))
 
         self.btn_write = tk.Button(line2, text="写入电台", command=self.write_radio,
-                                   bg="#3d6b30", fg="#eaf5e0", bd=0, padx=18, pady=5,
+                                   bg=ACC, fg="#FFFFFF", bd=0, padx=20, pady=6,
                                    font=("Microsoft YaHei UI", 10, "bold"),
-                                   activebackground="#4a7f3a", activeforeground="#eaf5e0")
+                                   activebackground="#2563EB", activeforeground="#FFFFFF",
+                                   disabledforeground=DIM, cursor="hand2")
         self._lang_hooks.append(lambda: self.btn_write.config(text=tr("写入电台")))
-        self.btn_write.pack(side="left", padx=12)
+        self.btn_write.pack(side="left", padx=(6, 12))
 
-        self.prog = ttk.Progressbar(line2, length=150, mode="determinate")
+        self.prog = ttk.Progressbar(line2, length=160, mode="determinate")
         self.prog.pack(side="left", padx=6)
 
-        self.lbl_status = tk.Label(line2, text="", bg=BG, fg=DIM,
-                                   font=("Microsoft YaHei UI", 9))
-        self.lbl_status.pack(side="left", padx=10)
+        self.lbl_status = tk.Label(line2, text="", bg=CARD, fg=DIM,
+                                   font=("Microsoft YaHei UI", 9), anchor="w")
+        self.lbl_status.pack(side="left", fill="x", expand=True, padx=(10, 0))
 
         # 启动时界面就是英文（cfg 里存着 lang=en）的话，上面"创建时先写中文、
         # 钩子负责切换时重画"的那批控件必须当场补画一遍，否则按钮保持中文。
@@ -1564,20 +1619,65 @@ class Tool(tk.Tk):
         self.lbl_blurb.configure(wraplength=w)
 
     def entry(self, parent, value, width):
-        e = tk.Entry(parent, width=width, bg=CARD, fg=FG, bd=0,
+        e = tk.Entry(parent, width=width, bg=INPUT_BG, fg=FG, bd=0,
                      insertbackground=FG, justify="center",
-                     font=("Consolas", 9))
+                     font=("Consolas", 9), highlightthickness=1,
+                     highlightbackground=LINE, highlightcolor=ACC)
         e.insert(0, value)
-        e.pack(side="left", padx=(4, 8), ipady=3)
+        e.pack(side="left", padx=(4, 10), ipady=4)
         return e
+
+    def _set_status(self, text, level="info"):
+        colors = {"info": DIM, "warn": WARN, "error": ERR, "ok": OK}
+        self.lbl_status.config(text=text, fg=colors.get(level, DIM))
+
+    def _set_busy(self, busy):
+        self.busy = busy
+        st = "disabled" if busy else "normal"
+        for b in (self.btn_write, self.btn_queue, self.btn_qclear, self.btn_calc):
+            try:
+                b.config(state=st)
+            except Exception:
+                pass
 
     def ports(self):
         if not HAVE_SERIAL:
             return []
         return [p.device for p in list_ports.comports()]
 
-    def reload_ports(self):
-        self.cb_port["values"] = self.ports()
+    def _apply_ports(self, plist):
+        self.cb_port["values"] = plist
+        cur = self.cb_port.get().strip()
+        pref = (self.cfg.get("port") or "").strip()
+        if cur and cur in plist:
+            pass
+        elif pref and pref in plist:
+            self.cb_port.set(pref)
+        elif "COM7" in plist:
+            self.cb_port.set("COM7")
+        elif plist and not cur:
+            self.cb_port.set(plist[0])
+        if hasattr(self, "lbl_port_badge"):
+            if plist:
+                self.lbl_port_badge.config(
+                    text=tr("串口就绪 ({n})").format(n=len(plist)),
+                    bg="#132A24", fg=OK)
+            else:
+                self.lbl_port_badge.config(
+                    text=tr("未检测到串口"),
+                    bg="#2B1D21", fg=ERR)
+
+    def reload_ports(self, async_scan=False):
+        if not async_scan:
+            self._apply_ports(self.ports())
+            return
+        def work():
+            plist = self.ports()
+            try:
+                self.after(0, lambda: self._apply_ports(plist))
+            except (tk.TclError, RuntimeError):
+                pass
+        threading.Thread(target=work, daemon=True).start()
 
     # --- satellite list ---------------------------------------------
 
@@ -1599,7 +1699,7 @@ class Tool(tk.Tk):
             # 老化判定以前是 `fresh or ... or not stamp`，三字段缓存 stamp 恒 0，
             # 于是 "not stamp" 永远为真 → 判定彻底失效，过期元素也照用（报告 第六部分·回归项 1 / U-P-3）。
             # 现在按 epoch 真判 14 天。
-            fresh = bool(stamp) and (time.time() - stamp < TLE_TTL_DAYS * 86400)
+            fresh = bool(stamp) and (time.time() - stamp < 600)
             if fresh or self.tle_offline:
                 return hit[0], hit[1], hit[2]
         try:
@@ -1646,7 +1746,8 @@ class Tool(tk.Tk):
                 # which is what made this look like it had hung.
                 cache = self._tle_cache()
 
-                if (not force) and len(cache) >= 50:
+                c_mtime = cache_file_time()
+                if (not force) and len(cache) >= 50 and c_mtime and (time.time() - c_mtime < 600):
                     sats = []
 
                     for norad_s, v in cache.items():
@@ -1749,6 +1850,13 @@ class Tool(tk.Tk):
         threading.Thread(target=work, daemon=True).start()
         self._poll_load()
 
+    def _auto_refresh_tle(self):
+        try:
+            if (not self.busy) and (time.time() - getattr(self, "tle_at", 0.0) >= 600):
+                self.load_group(force=True)
+        finally:
+            self.after(600_000, self._auto_refresh_tle)
+
     def _poll_load(self):
         got = self._loaded
         if got is None:
@@ -1848,8 +1956,8 @@ class Tool(tk.Tk):
     def set_sort(self, key):
         self.list_sort = key
         for k, b in self.sort_btns.items():
-            b.config(bg="#3d5340" if k == key else CARD,
-                     fg=FG if k == key else DIM)
+            b.config(bg=ACC if k == key else BTN_SEC,
+                     fg="#FFFFFF" if k == key else DIM)
         self.fill_list()
 
     def _grade(self, s):
@@ -1997,7 +2105,6 @@ class Tool(tk.Tk):
                           if sstv_mhz else f"SSTV {s.sstv}"))
         self.lbl_extra.config(text="   ".join(extra))
         self.lbl_blurb.config(text=tr(s.blurb or "业余卫星"))
-        self.draw_pic()
 
         try:
             self.satrec = core.Satrec.twoline2rv(s.tle[1], s.tle[2])
@@ -2153,28 +2260,6 @@ class Tool(tk.Tk):
         if self.satrec:
             self.recalc()
 
-    def draw_pic(self):
-        c = self.canvas
-        c.delete("all")
-        png = os.path.join(PIC_DIR, f"{self.sat.norad}.png")
-        if os.path.exists(png):
-            try:
-                from PIL import Image, ImageTk
-                im = Image.open(png).convert("RGB").resize((106, 106))
-                c.img = ImageTk.PhotoImage(im)
-                c.create_image(0, 0, anchor="nw", image=c.img)
-                return
-            except Exception:
-                pass
-        c.create_oval(4, 4, 102, 102, outline="#3a4640", width=2)
-        c.create_arc(10, 28, 96, 80, start=200, extent=140,
-                     style="arc", outline=ACC, width=2)
-        c.create_rectangle(44, 44, 62, 62, outline=ACC, width=2)
-        c.create_line(32, 53, 44, 53, fill=ACC, width=2)
-        c.create_line(62, 53, 74, 53, fill=ACC, width=2)
-        c.create_text(53, 90, text=str(self.sat.norad), fill=DIM,
-                      font=("Consolas", 8))
-
     # --- passes -----------------------------------------------------
     def params(self):
         try:
@@ -2188,21 +2273,23 @@ class Tool(tk.Tk):
             # 这里。原来一句"都填数字"分不清是"没填"还是"填错了"，
             # 而这两件事的下一步动作完全不同。
             if not (self.e_lat.get().strip() and self.e_lon.get().strip()):
-                messagebox.showerror(tr("台站"), tr(
-                    "先填经纬度（十进制度，如 31.2304 / 121.4737，"
-                    "西经南纬填负数）"))
+                self._set_status(tr("先填经纬度（十进制度，如 31.2304 / 121.4737）"), "warn")
+                self.e_lat.focus_set()
             else:
-                messagebox.showerror(tr("参数"), tr("经纬度/天数/仰角/间隔 填数字"))
+                self._set_status(tr("经纬度/天数/仰角/间隔 填数字"), "error")
+                self.e_lat.focus_set()
             return None
         if not (-90 <= lat <= 90 and -180 <= lon <= 180):
-            messagebox.showerror(tr("参数"), tr("纬度 -90..90，经度 -180..180"))
+            self._set_status(tr("纬度 -90..90，经度 -180..180"), "error")
+            self.e_lat.focus_set()
             return None
         if step < core.DPH_STEP_MS_MIN / 1000.0:
-            messagebox.showerror(tr("参数"),
-                                 tr("间隔最小 {n} 秒").format(n=core.DPH_STEP_MS_MIN // 1000))
+            self._set_status(tr("间隔最小 {n} 秒").format(n=core.DPH_STEP_MS_MIN // 1000), "error")
+            self.e_step.focus_set()
             return None
         if not (1 <= days <= 10):
-            messagebox.showerror(tr("参数"), tr("天数 1..10"))
+            self._set_status(tr("天数 1..10"), "error")
+            self.e_days.focus_set()
             return None
         self.cfg.update(lat=lat, lon=lon, days=days, min_el=min_el, step=step)
         self.save_cfg()
@@ -2259,15 +2346,15 @@ class Tool(tk.Tk):
     def set_filter(self, val, redraw=True):
         self.el_filter = val
         for v, b in self.fbtns.items():
-            b.config(bg="#3d5340" if v == val else CARD,
-                     fg=FG if v == val else DIM)
+            b.config(bg=ACC if v == val else BTN_SEC,
+                     fg="#FFFFFF" if v == val else DIM)
         if redraw:
             self.show_passes(self.passes)
 
     def toggle_only_checked(self):
         self.only_checked = not self.only_checked
-        self.btn_checked.config(bg="#3d5340" if self.only_checked else CARD,
-                                fg=FG if self.only_checked else DIM)
+        self.btn_checked.config(bg=ACC if self.only_checked else BTN_SEC,
+                                fg="#FFFFFF" if self.only_checked else DIM)
         self.show_passes(self.passes)
 
     def sort_by(self, key):
@@ -2436,7 +2523,8 @@ class Tool(tk.Tk):
     def queue_add(self):
         sel = [p for p in self.rows if id(p) in self.checked]
         if not sel:
-            messagebox.showerror(tr("待写"), tr("先勾选过境"))
+            self._set_status(tr("先勾选过境"), "warn")
+            self.tree.focus_set()
             return
         sat = self.sat
         tr = self.sel_trans()
@@ -2479,11 +2567,12 @@ class Tool(tk.Tk):
         if self.busy:
             return
         if not HAVE_SERIAL:
-            messagebox.showerror(tr("串口"), tr("没装 pyserial：pip install pyserial"))
+            self._set_status(tr("没装 pyserial：pip install pyserial"), "error")
             return
         port = self.cb_port.get().strip()
         if not port:
-            messagebox.showerror(tr("串口"), tr("先选串口"))
+            self._set_status(tr("先选串口"), "warn")
+            self.cb_port.focus_set()
             return
         if self.sat and self.cb_trans.current() == len(self._trs()):
             trs = self._trs()
@@ -2491,11 +2580,13 @@ class Tool(tk.Tk):
             if sat_freq.make_custom_transponder(
                     self.ent_custom_down.get(), self.ent_custom_up.get(), base_tone) is None:
                 self._custom_bad(True)
-                messagebox.showerror(tr("频率"), tr("自定义频率无效，请检查下行/上行输入"))
+                self._set_status(tr("自定义频率无效，请检查下行/上行输入"), "error")
+                self.ent_custom_down.focus_set()
                 return
         sel = list(self.queue) if self.queue else [p for p in self.rows if id(p) in self.checked]
         if not sel:
-            messagebox.showerror(tr("过境"), tr("没勾选过境"))
+            self._set_status(tr("没勾选过境"), "warn")
+            self.tree.focus_set()
             return
         sel.sort(key=lambda q: q.aos)
 
@@ -2546,10 +2637,9 @@ class Tool(tk.Tk):
         # 固件会按 0 Hz 拍，等于发一张废表。
         nofreq = [q for q in sel if not getattr(q, "freq10", 0)]
         if nofreq:
-            messagebox.showerror(
-                tr("频率"), tr("{n} 段没有下行频点。\n\n"
-                              "在这颗星的卡片里填「下行 MHz（标称）」，"
-                              "重算过境后再写。").format(n=len(nofreq)))
+            self._set_status(
+                tr("{n} 段没有下行频点：请先填下行 MHz 并重算过境").format(n=len(nofreq)),
+                "error")
             return
 
         # 条数上限是条目区的物理上限（16 + 102×40 = 0x1000），真正决定
@@ -2680,8 +2770,8 @@ class Tool(tk.Tk):
         self.cfg["port"] = port
         self.save_cfg()
 
-        self.busy = True
-        self.btn_write.config(state="disabled")
+        self._set_busy(True)
+        self._set_status(tr("正在连接串口…"), "info")
         threading.Thread(target=self._writer,
                          args=(port, table, sectors, bool(self.var_unlock.get()), tz),
                          daemon=True).start()
@@ -2689,31 +2779,41 @@ class Tool(tk.Tk):
     def _writer(self, port, table, sectors, allow_unlock=False, tz_hours=None):
         notes = {}
         def tick(text, done, total):
+            pct = int(round(100 * done / max(1, total)))
             try:
-                self.after(0, lambda: (self.prog.configure(value=100 * done / max(1, total)),
-                                       self.lbl_status.config(text=text, fg=DIM)))
+                self.after(0, lambda: (self.prog.configure(value=pct),
+                                       self._set_status(f"{text} ({pct}%)", "info")))
             except (tk.TclError, RuntimeError):
                 pass
         try:
             st = radio_write(port, table, allow_unlock=allow_unlock,
                              tick=tick, notes=notes, tz_hours=tz_hours)
             try:
-                self.after(0, lambda: self.lbl_status.config(
-                    text=tr("✓ 完成 · {n} 字节 · {s} 扇区{fw}").format(
-                        n=st['len'], s=st['sectors'], fw=notes.get('fw', '')), fg=ACC))
+                self.after(0, lambda: self._set_status(
+                    tr("✓ 完成 · {n} 字节 · {s} 扇区{fw}").format(
+                        n=st['len'], s=st['sectors'], fw=notes.get('fw', '')), "ok"))
             except (tk.TclError, RuntimeError):
                 pass
         except Exception as e:
             msg = str(e)
+            low = msg.lower()
+            if "timeout" in low or tr("超时") in msg:
+                hint = tr("（请检查数据线与电台开机状态后重试）")
+            elif "permission" in low or "access" in low or tr("占用") in msg:
+                hint = tr("（串口可能被其他软件占用，关闭后重试）")
+            elif "filenotfound" in low or "could not open" in low or tr("断开") in msg:
+                hint = tr("（串口未就绪或已断开，点「端口」刷新后重试）")
+            else:
+                hint = ""
             log_line("FAIL", msg.replace(chr(10), " / "))
             try:
-                self.after(0, lambda: self.lbl_status.config(text=tr("✗ {msg}").format(msg=msg), fg="#d98a5a"))
+                self.after(0, lambda: self._set_status(
+                    tr("✗ {msg}{hint}").format(msg=msg, hint=hint), "error"))
             except (tk.TclError, RuntimeError):
                 pass
         finally:
             try:
-                self.after(0, lambda: (setattr(self, "busy", False),
-                                       self.btn_write.config(state="normal"),
+                self.after(0, lambda: (self._set_busy(False),
                                        self.prog.configure(value=0)))
             except (tk.TclError, RuntimeError):
                 pass

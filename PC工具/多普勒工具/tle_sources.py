@@ -346,7 +346,8 @@ def _curl_get(url, timeout):
            "--connect-timeout", str(int(CONNECT_TIMEOUT)),
            "-m", str(int(timeout)), "-A", UA,
            "-w", "\n@@HTTP%{http_code}@@", url]
-    out = subprocess.run(cmd, capture_output=True, timeout=timeout + 20)
+    out = subprocess.run(cmd, capture_output=True, timeout=timeout + 20,
+                         creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     if out.returncode != 0:
         raise FetchError(f"curl rc={out.returncode} "
                          f"{out.stderr.decode('utf-8', 'replace').strip()[:160]}",
